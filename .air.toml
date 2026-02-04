@@ -1,0 +1,14 @@
+env_files = []
+root = "."
+testdata_dir = "testdata"
+tmp_dir = "bin"
+
+[build]
+  bin = "./bin/debug/hc"
+  cmd = "make build-debug"
+  delay = 500
+  entrypoint = ["./bin/debug/hc"]
+
+[screen]
+  clear_on_rebuild = true
+  keep_scroll = true
