@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 	"net/http"
+
+	"github.com/yatoenough/moniserve/internal/handlers"
 )
 
 type App struct {
@@ -13,9 +15,7 @@ type App struct {
 func NewApp() *App {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, World!"))
-	})
+	handlers.Setup(mux)
 
 	server := &http.Server{
 		Addr:    ":8080",
