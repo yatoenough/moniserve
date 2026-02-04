@@ -4,10 +4,10 @@ testdata_dir = "testdata"
 tmp_dir = "bin"
 
 [build]
-  bin = "./bin/debug/hc"
+  bin = "./bin/debug/moniserve"
   cmd = "make build-debug"
   delay = 500
-  entrypoint = ["./bin/debug/hc"]
+  entrypoint = ["./bin/debug/moniserve"]
 
 [screen]
   clear_on_rebuild = true

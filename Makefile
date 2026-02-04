@@ -1,4 +1,4 @@
-APP_NAME=hc
+APP_NAME=moniserve
 TARGET_DIR=bin
 
 default: run
