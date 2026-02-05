@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
+	"github.com/yatoenough/moniserve/internal/checker"
 	"github.com/yatoenough/moniserve/internal/config"
 	"github.com/yatoenough/moniserve/internal/handlers"
 )
@@ -18,7 +20,10 @@ type App struct {
 func NewApp(cfg *config.Config) *App {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", handlers.HelloHandler)
+	ch := checker.NewChecker(cfg.Endpoints, time.Second*5)
+	status := handlers.NewStatusHandler(ch)
+
+	mux.HandleFunc("/status", status.Handle)
 
 	addr := fmt.Sprintf(":%s", cfg.Port)
 
