@@ -2,33 +2,39 @@ package app
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/yatoenough/moniserve/internal/config"
 	"github.com/yatoenough/moniserve/internal/handlers"
 )
 
 type App struct {
+	addr   string
 	server *http.Server
 }
 
-func NewApp() *App {
+func NewApp(cfg *config.Config) *App {
 	mux := http.NewServeMux()
 
-	handlers.Setup(mux)
+	mux.HandleFunc("/", handlers.HelloHandler)
+
+	addr := fmt.Sprintf(":%s", cfg.Port)
 
 	server := &http.Server{
-		Addr:    ":8080",
+		Addr:    addr,
 		Handler: mux,
 	}
 
 	return &App{
+		addr,
 		server,
 	}
 }
 
 func (a *App) Start() error {
-	log.Println("Server starting on :8080")
+	log.Printf("Server starting on %s\n", a.addr)
 	if err := a.server.ListenAndServe(); err != nil {
 		return err
 	}

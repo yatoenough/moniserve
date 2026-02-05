@@ -11,10 +11,13 @@ import (
 	"time"
 
 	"github.com/yatoenough/moniserve/internal/app"
+	"github.com/yatoenough/moniserve/internal/config"
 )
 
 func main() {
-	app := app.NewApp()
+	cfg := config.MustRead("dev.cfg.json")
+	
+	app := app.NewApp(cfg)
 
 	go func() {
 		if err := app.Start(); err != nil && !errors.Is(err, http.ErrServerClosed) {
